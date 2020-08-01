@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+      "layer0": "trit:items/world_alteration_device"
+    }
+  } 
+  

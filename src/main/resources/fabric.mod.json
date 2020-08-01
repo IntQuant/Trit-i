@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "trit",
+  "version": "${version}",
+
+  "name": "Trit",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "IQuant"
+  ],
+  "contact": {
+    "homepage": "https://handtruth.com/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "MIT",
+  "icon": "assets/trit/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.handtruth.trit.Trit"
+    ]
+  },
+  "mixins": [
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

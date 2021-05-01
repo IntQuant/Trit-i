@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 //Spatial Flux Generator
 //Heart of Unreality (Void given focus)
 //Amalgam Amulet (Warranty voids when exposed to enriched matter)
+//Matter Beacon
 
 public class Trit implements ModInitializer {
 	public static final Item ITEM_CRYSTAL_0 = new Item(new Item.Settings().group(ItemGroup.MISC));

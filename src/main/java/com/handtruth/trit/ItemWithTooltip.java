@@ -2,7 +2,8 @@ package com.handtruth.trit;
 
 import java.util.List;
 
-import blue.endless.jankson.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;

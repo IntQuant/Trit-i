@@ -45,7 +45,7 @@ public class ItemWAD extends Item{
         if (blockState.getHardness(world, blockPos) == -1) return;
         if (world.getBlockEntity(blockPos) != null) return;
         BlockEntity blockEntity = block.hasBlockEntity() ? world.getBlockEntity(blockPos) : null;
-        LootContext.Builder builder = (new LootContext.Builder((ServerWorld)world)).random(world.random).parameter(LootContextParameters.POSITION, blockPos).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, blockEntity).optionalParameter(LootContextParameters.THIS_ENTITY, user);
+        LootContext.Builder builder = (new LootContext.Builder((ServerWorld)world)).random(world.random).parameter(LootContextParameters.ORIGIN, new Vec3d(blockPos.getX(), blockPos.getY(), blockPos.getZ())).parameter(LootContextParameters.TOOL, ItemStack.EMPTY).optionalParameter(LootContextParameters.BLOCK_ENTITY, blockEntity).optionalParameter(LootContextParameters.THIS_ENTITY, user);
         for (ItemStack stack : blockState.getDroppedStacks(builder)) {
             for (ItemStack dstack : drops) {
                 if (dstack.isItemEqual(stack)) {

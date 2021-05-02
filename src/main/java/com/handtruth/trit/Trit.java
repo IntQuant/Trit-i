@@ -20,7 +20,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 //todo list:
-//World Alteration Device - Direct Active Rectification Fulfiller Edition
+//depr. World Alteration Device - Direct Active Rectification Fulfiller Edition
+//World Alteration Device (Direct Acyclic Removal Field Emitter)
+//a.k.a. WADDARF, the destroyer of worlds
 
 //Flux Flow Fixture
 
@@ -34,13 +36,14 @@ import net.minecraft.entity.player.PlayerEntity;
 public class Trit implements ModInitializer {
 	public static final Item ITEM_CRYSTAL_0 = new Item(new Item.Settings().group(ItemGroup.MISC));
 	public static final Item ITEM_BLADEOFSHADES = new Item(new Item.Settings().group(ItemGroup.MISC));
-	public static final Item ITEM_AMALGAM_AMULET = new Item(new Item.Settings().group(ItemGroup.MISC));
+	public static final Item ITEM_AMALGAM_AMULET = new ItemWithTooltip(new Item.Settings().group(ItemGroup.MISC), "item.trit.amalgam_amulet.tooltip");
 	public static final ItemWAD ITEM_WAD = new ItemWAD(new Item.Settings().group(ItemGroup.MISC).fireproof().maxCount(1));
-	public static final Item ITEM_HEART_OF_UNREALITY = new ItemWithTooltip(new Item.Settings().group(ItemGroup.MISC).fireproof(), "item.trit.heart_of_unreality.tooltip");
+	public static final Item ITEM_HEART_OF_UNREALITY = new ItemWithTooltip(new Item.Settings().group(ItemGroup.MISC).fireproof(), "item.trit.heart_of_unreality.tooltip", 0x303030);
 	public static final Block FFF_NODE = new Block(FabricBlockSettings.of(Material.METAL).hardness(4.0f));
 
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void onInitialize() {
 		CuriosApi.enqueueSlotType(BuildScheme.REGISTER, new SlotTypeInfo.Builder("necklace").size(1).build());
 

@@ -2,24 +2,33 @@ package com.handtruth.trit;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public class ItemWAD extends Item{
@@ -67,7 +76,7 @@ public class ItemWAD extends Item{
         
         if (!world.isClient()) {
             Vec3d ipos = new Vec3d(user.getX(), user.getEyeY(), user.getZ());
-            BlockHitResult hit = world.rayTrace(new RayTraceContext(ipos, ipos.add(user.getRotationVector().multiply(60)), RayTraceContext.ShapeType.COLLIDER, RayTraceContext.FluidHandling.NONE, user));
+            BlockHitResult hit = world.raycast(new RaycastContext(ipos, ipos.add(user.getRotationVector().multiply(60)), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, user));
             BlockPos blockPos = hit.getBlockPos();
             
             LinkedList<BlockPos> list = new LinkedList<>();
@@ -104,8 +113,21 @@ public class ItemWAD extends Item{
                 user.inventory.offerOrDrop(world, drop);
             }
         }
+        
         return TypedActionResult.success(user.getStackInHand(hand));
     }
-       
+
+    @Environment(EnvType.CLIENT)
+    @Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        BaseText text1 = new TranslatableText("item.trit.world_alteration_device.tooltip.1");
+        tooltip.add(text1.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
+        BaseText text2 = new TranslatableText("item.trit.world_alteration_device.tooltip.2");
+        tooltip.add(text2.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
+        BaseText text3 = new TranslatableText("item.trit.world_alteration_device.tooltip.3");
+        tooltip.add(text3.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
+        BaseText text4 = new TranslatableText("item.trit.world_alteration_device.tooltip.4");
+        tooltip.add(text4.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
+    }       
     
 }

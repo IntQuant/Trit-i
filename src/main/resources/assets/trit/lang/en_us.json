@@ -1,4 +1,10 @@
 {
     "item.trit.heart_of_unreality": "Heart Of Unreality",
-    "item.trit.heart_of_unreality.tooltip": "Void given focus"
+    "item.trit.heart_of_unreality.tooltip": "Void given focus",
+    "item.trit.amalgam_amulet.tooltip": "Warranty voids when exposed to enriched matter",
+    "item.trit.world_alteration_device": "World Alteration Device (Direct Acyclic Field Emitting Remover)",
+    "item.trit.world_alteration_device.tooltip.1": "A.K.A. WADDAFER, the destroyer of worlds",
+    "item.trit.world_alteration_device.tooltip.2": "Can break almost any block",
+    "item.trit.world_alteration_device.tooltip.3": "On use: emits a ray which breaks a block",
+    "item.trit.world_alteration_device.tooltip.4": "(sneak while using for... uh... 'better' results)"
 }

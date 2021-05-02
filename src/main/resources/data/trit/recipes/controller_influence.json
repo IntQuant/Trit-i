@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "PCP",
+      " I ",
+      "PEP"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:blaze_powder"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "E": {
+        "item": "trit:controller_energy"
+      }
+    },
+    "result": {
+      "item": "trit:controller_influence",
+      "count": 16
+    }
+  }

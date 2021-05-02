@@ -16,24 +16,28 @@ import net.minecraft.world.World;
 
 public class ItemWithTooltip extends Item {
 
-    private String tooltip;
+    private int lines;
     private int color;
 
-    public ItemWithTooltip(Settings settings, String tooltip) {
-        this(settings, tooltip, 0xa0a0a0);
+    public ItemWithTooltip(Settings settings, int lines) {
+        this(settings, lines, 0xa0a0a0);
     }
 
-    public ItemWithTooltip(Settings settings, String tooltip, int color) {
+    public ItemWithTooltip(Settings settings, int lines, int color) {
         super(settings);
-        this.tooltip = tooltip;
+        this.lines = lines;
         this.color = color;
     }
 
     @Environment(EnvType.CLIENT)
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        BaseText text = new TranslatableText(this.tooltip);
-        tooltip.add(text.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(color))));
+        for (int i=0;i<lines;i++) {
+            BaseText text = new TranslatableText(this.getTranslationKey()+".tooltip."+Integer.toString(i));
+            tooltip.add(text.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color))));
+        }
+        BaseText text = new TranslatableText(this.getTranslationKey()+".tooltip.lore");
+            tooltip.add(text.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(Trit.COLOR_LORE))));
     }
         
 }

@@ -1,0 +1,41 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "BOP",
+      "ISR",
+      "NEA"
+    ],
+    "key": {
+      "N": {
+        "item": "minecraft:netherite_block"
+      },
+      "R": {
+        "item": "minecraft:redstone_block"
+      },
+      "S": {
+        "item": "minecraft:nether_star"
+      },
+      "I": {
+        "item": "trit:controller_influence"
+      },
+      "E": {
+        "item": "trit:controller_energy"
+      },
+      "O": {
+        "item": "minecraft:observer"
+      },
+      "P": {
+        "item": "minecraft:ender_pearl"
+      },
+      "B": {
+        "item": "minecraft:clay"
+      },
+      "A": {
+        "tag": "minecraft:buttons"
+      }
+    },
+    "result": {
+      "item": "trit:world_alteration_device",
+      "count": 1
+    }
+  }

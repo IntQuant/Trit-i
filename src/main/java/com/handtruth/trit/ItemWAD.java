@@ -3,7 +3,10 @@ package com.handtruth.trit;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Set;
+
+import com.handtruth.trit.util.WeightedBlockPos;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -77,31 +80,38 @@ public class ItemWAD extends Item{
         if (!world.isClient()) {
             Vec3d ipos = new Vec3d(user.getX(), user.getEyeY(), user.getZ());
             BlockHitResult hit = world.raycast(new RaycastContext(ipos, ipos.add(user.getRotationVector().multiply(60)), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, user));
-            BlockPos blockPos = hit.getBlockPos();
+            BlockPos center = hit.getBlockPos();
             
-            LinkedList<BlockPos> list = new LinkedList<>();
+            PriorityQueue<WeightedBlockPos> list = new PriorityQueue<>();
             Set<BlockPos> visited = new HashSet<BlockPos>();
-            list.add(blockPos);
+            list.add(new WeightedBlockPos(0, center));
             
             if (user.isSneaking()) {
                 double power = 1000f;
                 while (power > 0 && !list.isEmpty()) {
-                    BlockPos current = list.removeLast();
+                    WeightedBlockPos w_current = list.remove();
+                    BlockPos current = w_current.pos;
                     //System.out.println(power);
                     if (visited.contains(current)) continue;
                     power--;
                     visited.add(current);
-                    int displacement = 16;
-                    list.add(Math.abs(world.random.nextInt()) % Math.min(list.size()+1, displacement), current.up());
-                    list.add(Math.abs(world.random.nextInt()) % Math.min(list.size()+1, displacement), current.down());
-                    list.add(Math.abs(world.random.nextInt()) % Math.min(list.size()+1, displacement), current.east());
-                    list.add(Math.abs(world.random.nextInt()) % Math.min(list.size()+1, displacement), current.north());
-                    list.add(Math.abs(world.random.nextInt()) % Math.min(list.size()+1, displacement), current.south());
-                    list.add(Math.abs(world.random.nextInt()) % Math.min(list.size()+1, displacement), current.west());
+                    List<BlockPos> neighbours = new LinkedList<>();
+                    neighbours.add(current.up());
+                    neighbours.add(current.down());
+                    neighbours.add(current.east());
+                    neighbours.add(current.north());
+                    neighbours.add(current.south());
+                    neighbours.add(current.west());
+                    for (BlockPos pos : neighbours) {
+                        int cost = w_current.weight;
+                        cost -= (int)(Math.max(0, world.getBlockState(pos).getHardness(world, pos))*4);
+                        cost += pos.getSquaredDistance(center)*10;
+                        list.add(new WeightedBlockPos(cost, pos));
+                    }
                     power -= Math.max(0, world.getBlockState(current).getHardness(world, current));
                 }
             }
-            visited.add(blockPos);
+            visited.add(center);
             
             LinkedList<ItemStack> drops = new LinkedList<>();
 
@@ -120,14 +130,13 @@ public class ItemWAD extends Item{
     @Environment(EnvType.CLIENT)
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        BaseText text1 = new TranslatableText("item.trit.world_alteration_device.tooltip.1");
-        tooltip.add(text1.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
-        BaseText text2 = new TranslatableText("item.trit.world_alteration_device.tooltip.2");
-        tooltip.add(text2.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
-        BaseText text3 = new TranslatableText("item.trit.world_alteration_device.tooltip.3");
-        tooltip.add(text3.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
-        BaseText text4 = new TranslatableText("item.trit.world_alteration_device.tooltip.4");
-        tooltip.add(text4.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(0xa0a0a0))));
-    }       
-    
+        BaseText text_lore = new TranslatableText("item.trit.world_alteration_device.tooltip.lore");
+        BaseText text1 = new TranslatableText("item.trit.world_alteration_device.tooltip.0");
+        tooltip.add(text1.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xa0a0a0))));
+        BaseText text2 = new TranslatableText("item.trit.world_alteration_device.tooltip.1");
+        tooltip.add(text2.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xa0a0a0))));
+        BaseText text3 = new TranslatableText("item.trit.world_alteration_device.tooltip.2");
+        tooltip.add(text3.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xa0a0a0))));
+        tooltip.add(text_lore.setStyle(Style.EMPTY.withItalic(true).withColor(TextColor.fromRgb(Trit.COLOR_LORE))));
+    }    
 }

@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "   ",
+      " L ",
+      "CIC"
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:light_blue_dye"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      }
+    },
+    "result": {
+      "item": "trit:controller_energy",
+      "count": 16
+    }
+  }
